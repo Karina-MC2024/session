@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de inscritos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Listado de Inscritos</h1>
+        <a class="boton" href="{{ url_for('registro') }}">Nuevo Inscrito</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Fecha</th>
+                    <th>Turno</th>
+                    <th>Seminarios</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if inscritos %}
+                    {% for inscrito in inscritos %}
+                    <tr>
+                        <td>{{ inscrito['id'] }}</td>
+                        <td>{{ inscrito['nombre'] }}</td>
+                        <td>{{ inscrito['apellidos'] }}</td>
+                        <td>{{ inscrito['fecha'] }}</td>
+                        <td>{{ inscrito['turno'] }}</td>
+                        <td>{{ inscrito['seminarios'] }}</td>
+                        <td>
+                            <a class="boton" href="{{ url_for('editar', id=inscrito['id']) }}">Editar</a>
+                            <a class="boton" href="{{ url_for('eliminar', id=inscrito['id']) }}">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7">No hay inscritos.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
